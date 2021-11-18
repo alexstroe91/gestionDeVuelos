@@ -5,17 +5,37 @@
  */
 package gestionvuelos;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author DAM2A-28
  */
 public class ventanaDescripcion extends javax.swing.JFrame {
 
+    Connection conexion = null;
+        
     /**
      * Creates new form ventanaDescripcion
      */
     public ventanaDescripcion() {
         initComponents();
+        conectarBaseDatos();
+    }
+    
+    public boolean conectarBaseDatos() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/basedatoscasa", "root", "");
+            return true;
+
+        } catch (SQLException ex) {
+            return false;
+        } catch (ClassNotFoundException ex) {
+            return false;
+        }
     }
 
     /**
