@@ -30,8 +30,8 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnTablas = new javax.swing.JButton();
-        btnBaseDatos2 = new javax.swing.JButton();
         btnEstructura = new javax.swing.JButton();
+        btnBaseDatos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -42,36 +42,50 @@ public class ventanaDescripcion extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 153));
 
+        btnTablas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestionvuelos/imgTablas.jpg"))); // NOI18N
+        btnTablas.setText("Tablas");
+        btnTablas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTablas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnEstructura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestionvuelos/imgEstructura.gif"))); // NOI18N
+        btnEstructura.setText("Estructuras");
+        btnEstructura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEstructura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnBaseDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestionvuelos/imgBBDD.gif"))); // NOI18N
+        btnBaseDatos.setText("\n\n\n\nBase de Datos");
+        btnBaseDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBaseDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBaseDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBaseDatosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
-                .addComponent(btnTablas, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(211, 211, 211))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(26, 26, 26)
-                    .addComponent(btnBaseDatos2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(408, Short.MAX_VALUE)))
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(btnBaseDatos)
+                .addGap(70, 70, 70)
+                .addComponent(btnTablas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(207, 207, 207))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(418, Short.MAX_VALUE)
-                    .addComponent(btnEstructura, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(398, Short.MAX_VALUE)
+                    .addComponent(btnEstructura, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(16, 16, 16)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnTablas, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBaseDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addComponent(btnTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(btnBaseDatos2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addContainerGap()))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -104,6 +118,10 @@ public class ventanaDescripcion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBaseDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaseDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBaseDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,7 +159,7 @@ public class ventanaDescripcion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBaseDatos2;
+    private javax.swing.JButton btnBaseDatos;
     private javax.swing.JButton btnEstructura;
     private javax.swing.JButton btnTablas;
     private javax.swing.JLabel jLabel1;
