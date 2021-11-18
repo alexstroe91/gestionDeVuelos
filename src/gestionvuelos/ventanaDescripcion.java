@@ -8,6 +8,7 @@ package gestionvuelos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,24 +17,30 @@ import java.sql.SQLException;
 public class ventanaDescripcion extends javax.swing.JFrame {
 
     Connection conexion = null;
-        
+
     /**
      * Creates new form ventanaDescripcion
      */
     public ventanaDescripcion() {
         initComponents();
-        conectarBaseDatos();
+        if (conectarBaseDatos()) {
+            JOptionPane.showMessageDialog(this, "Conexion a la base de datos con exito.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.");
+        }
     }
-    
+
     public boolean conectarBaseDatos() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/basedatoscasa", "root", "");
+            conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/gestiondevuelos", "root", "");
             return true;
 
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             return false;
         } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage() + " 2");
             return false;
         }
     }
