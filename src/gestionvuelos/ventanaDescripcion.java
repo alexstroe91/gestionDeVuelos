@@ -6,8 +6,11 @@
 package gestionvuelos;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +33,8 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         }
     }
 
+    ////////////////////////////////////////        METODOS        ////////////////////////////////////////
+    
     public boolean conectarBaseDatos() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -45,6 +50,22 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         }
     }
 
+    public void informaBD(){
+        DatabaseMetaData dbmd = null;
+        try {
+            dbmd = conexion.getMetaData();
+            String texto = ("INFORMACION SOBRE LA BASE DE DATOS: \n"
+                    + "    NOMBRE: " + dbmd.getSchemas() + "\n"
+                    + "    DRIVER: " + dbmd.getDriverName() + "\n"
+                    + "    URL: " + dbmd.getURL() + "\n"
+                    + "    USUARIO: " + dbmd.getUserName()+ "\n"
+                    + "    TABLA: " + dbmd.getTables(null, "gestiondevuelos", null, null));
+            txtArea.setText(texto);
+        } catch (SQLException ex) {
+            Logger.getLogger(ventanaDescripcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,10 +118,10 @@ public class ventanaDescripcion extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(btnBaseDatos)
-                .addGap(70, 70, 70)
+                .addComponent(btnBaseDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
                 .addComponent(btnTablas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(207, 207, 207))
+                .addGap(199, 199, 199))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(398, Short.MAX_VALUE)
@@ -156,8 +177,11 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    ////////////////////////////////////////        BOTONES        ////////////////////////////////////////
+    
     private void btnBaseDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaseDatosActionPerformed
-        // TODO add your handling code here:
+        informaBD();
     }//GEN-LAST:event_btnBaseDatosActionPerformed
 
     /**
