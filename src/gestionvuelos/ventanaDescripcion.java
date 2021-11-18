@@ -8,6 +8,7 @@ package gestionvuelos;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,17 +55,44 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         DatabaseMetaData dbmd = null;
         try {
             dbmd = conexion.getMetaData();
-            String texto = ("INFORMACION SOBRE LA BASE DE DATOS: \n"
-                    + "    NOMBRE: " + dbmd.getSchemas() + "\n"
-                    + "    DRIVER: " + dbmd.getDriverName() + "\n"
-                    + "    URL: " + dbmd.getURL() + "\n"
-                    + "    USUARIO: " + dbmd.getUserName()+ "\n"
-                    + "    TABLA: " + dbmd.getTables(null, "gestiondevuelos", null, null));
+            String texto = ("                                                INFORMACION SOBRE LA BASE DE DATOS: \n"
+                    + "\n    - NOMBRE: " + dbmd.getSchemas() + "\n"
+                    + "\n    - DRIVER: " + dbmd.getDriverName() + "\n"
+                    + "\n    - URL: " + dbmd.getURL() + "\n"
+                    + "\n    - USUARIO: " + dbmd.getUserName()+ "\n"
+                    + "\n    - TABLA: " + dbmd.getTables(null, "gestiondevuelos", null, null));
             txtArea.setText(texto);
         } catch (SQLException ex) {
             Logger.getLogger(ventanaDescripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void informaTabla(){
+        DatabaseMetaData dbmd = null;
+        try {
+            dbmd = conexion.getMetaData();
+            ResultSet resultado = dbmd.getTables(null, "gestiondevuelos", null, null);
+            
+            while(resultado.next()){
+                ResultSet columna = dbmd.getColumns(null, "gestiondevuelos", resultado.getString("TABLE_NAME"), null);
+                String esquema = "";
+                while(columna.next()){
+                    esquema += columna.getString("COLUMN_NAME") + "    ||||    ";
+                }
+            }
+            
+            String texto = ("                                                INFORMACION SOBRE LA TABLA: \n"
+                    + "\n    - CATALOGO: " + resultado.getString("TABLE_CAT") + "\n"
+                    + "\n    - ESQUEMA: " + resultado.getString("TABLE_CAT") + "\n"
+                    + "\n    - NOMBRE TABLA: " + dbmd.getURL() + "\n"
+                    + "\n    - TIPO: " + dbmd.getUserName()+ "\n");
+            txtArea.setText(texto);
+        } catch (SQLException ex) {
+            Logger.getLogger(ventanaDescripcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,6 +124,11 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         btnTablas.setText("Tablas");
         btnTablas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnTablas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTablas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTablasActionPerformed(evt);
+            }
+        });
 
         btnEstructura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestionvuelos/imgEstructura.gif"))); // NOI18N
         btnEstructura.setText("Estructuras");
@@ -184,6 +217,11 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         informaBD();
     }//GEN-LAST:event_btnBaseDatosActionPerformed
 
+    private void btnTablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTablasActionPerformed
+   
+    
     /**
      * @param args the command line arguments
      */
