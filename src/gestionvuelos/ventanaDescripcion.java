@@ -92,6 +92,31 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         }
     }
 
+    public void informaEstructura() {
+        String tabla = "";
+        String texto = "";
+        try {
+            DatabaseMetaData dbmd = conexion.getMetaData();
+            ResultSet resultado = dbmd.getTables(null, "gestiondevuelos", null, null);
+
+            while (resultado.next()) {
+                texto += "                      -------------------       INFORMACION SOBRE LA ESTRUCTURA:       -------------------\n";
+                texto += "\nNOMBRE DE LA TABLA: " + resultado.getString("TABLE_NAME");
+                ResultSet resulcolum = dbmd.getColumns(null, "gestiondevuelos", tabla, null);
+                while (resulcolum.next()) {
+                    texto += ("\n    - NOMBRE COLUMNA: " + resulcolum.getString("COLUMN_NAME")
+                            + "\n" + "    - TIPO COLUMNA: " + resulcolum.getString("TYPE_NAME")
+                            + "\n" + "    - TAMAÑO: " + resulcolum.getString("COLUMN_SIZE")
+                            + "\n" + "    - ES NULA: " + resulcolum.getString(("IS_NULLABLE")));
+                }
+            }
+            txtArea.setText(texto);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ventanaDescripcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,6 +157,11 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         btnEstructura.setText("Estructuras");
         btnEstructura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEstructura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEstructura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstructuraActionPerformed(evt);
+            }
+        });
 
         btnBaseDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestionvuelos/imgBBDD.gif"))); // NOI18N
         btnBaseDatos.setText("\n\n\n\nBase de Datos");
@@ -217,6 +247,10 @@ public class ventanaDescripcion extends javax.swing.JFrame {
     private void btnTablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablasActionPerformed
         informaTabla();
     }//GEN-LAST:event_btnTablasActionPerformed
+
+    private void btnEstructuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstructuraActionPerformed
+        informaEstructura();
+    }//GEN-LAST:event_btnEstructuraActionPerformed
 
     /**
      * @param args the command line arguments
