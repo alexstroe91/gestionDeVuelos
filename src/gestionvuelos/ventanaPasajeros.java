@@ -5,6 +5,13 @@
  */
 package gestionvuelos;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DAM2A-28
@@ -16,6 +23,7 @@ public class ventanaPasajeros extends javax.swing.JFrame {
      */
     public ventanaPasajeros() {
         initComponents();
+        cargarLista();
     }
 
     /**
@@ -90,12 +98,32 @@ public class ventanaPasajeros extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxPasajerosActionPerformed
 
-    
-    public void cargarLista(){
-        
+    public void cargarLista() {
+        try {
+            ventanaDescripcion ventana = new ventanaDescripcion();
+            if (ventana.conectarBaseDatos()) {
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.");
+            }
+            Statement stmt = (Statement) ventana.conexion.createStatement();
+
+            ResultSet resultado = (ResultSet) stmt.executeQuery("SELECT cod_vuelo FROM vuelos");
+
+            while (resultado.next()) {
+                this.cbxPasajeros.addItem(resultado.getString("cod_vuelo"));
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ventanaPasajeros.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    
+    public void cargarTabla(){
+        
+    }
+
     /**
      * @param args the command line arguments
      */
