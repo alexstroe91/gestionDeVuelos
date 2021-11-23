@@ -28,7 +28,7 @@ public class ventanaDescripcion extends javax.swing.JFrame {
     public ventanaDescripcion() {
         initComponents();
         if (conectarBaseDatos()) {
-            JOptionPane.showMessageDialog(this, "Conexion a la base de datos con exito.");
+            
         } else {
             JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.");
         }
