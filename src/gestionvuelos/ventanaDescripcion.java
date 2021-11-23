@@ -35,7 +35,6 @@ public class ventanaDescripcion extends javax.swing.JFrame {
     }
 
     ////////////////////////////////////////        METODOS        ////////////////////////////////////////
-    
     public boolean conectarBaseDatos() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -51,7 +50,7 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         }
     }
 
-    public void informaBD(){
+    public void informaBD() {
         DatabaseMetaData dbmd = null;
         try {
             dbmd = conexion.getMetaData();
@@ -59,41 +58,40 @@ public class ventanaDescripcion extends javax.swing.JFrame {
                     + "\n    - NOMBRE: " + dbmd.getSchemas() + "\n"
                     + "\n    - DRIVER: " + dbmd.getDriverName() + "\n"
                     + "\n    - URL: " + dbmd.getURL() + "\n"
-                    + "\n    - USUARIO: " + dbmd.getUserName()+ "\n"
+                    + "\n    - USUARIO: " + dbmd.getUserName() + "\n"
                     + "\n    - TABLA: " + dbmd.getTables(null, "gestiondevuelos", null, null));
             txtArea.setText(texto);
         } catch (SQLException ex) {
             Logger.getLogger(ventanaDescripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void informaTabla(){
+
+    public void informaTabla() {
         DatabaseMetaData dbmd = null;
+        String texto = "";
         try {
             dbmd = conexion.getMetaData();
-            ResultSet resultado = dbmd.getTables(null, "gestiondevuelos", null, null);
-            
-            while(resultado.next()){
+            ResultSet resultado = dbmd.getTables(null, "gestiondevuelos", "%", null);
+
+            String esquema = "";
+            while (resultado.next()) {
                 ResultSet columna = dbmd.getColumns(null, "gestiondevuelos", resultado.getString("TABLE_NAME"), null);
-                String esquema = "";
-                while(columna.next()){
+                while (columna.next()) {
                     esquema += columna.getString("COLUMN_NAME") + "    ||||    ";
+
                 }
+                texto += ("                      -------------------       INFORMACION SOBRE LA TABLA:       -------------------\n"
+                        + "\n    - CATALOGO: " + resultado.getString("TABLE_CAT") + "\n"
+                        + "\n    - ESQUEMA: " + esquema + "\n"
+                        + "\n    - NOMBRE TABLA: " + resultado.getString("TABLE_NAME") + "\n"
+                        + "\n    - TIPO: " + resultado.getString("TABLE_TYPE") + "\n");
+                txtArea.setText(texto);
             }
-            
-            String texto = ("                                                INFORMACION SOBRE LA TABLA: \n"
-                    + "\n    - CATALOGO: " + resultado.getString("TABLE_CAT") + "\n"
-                    + "\n    - ESQUEMA: " + resultado.getString("TABLE_CAT") + "\n"
-                    + "\n    - NOMBRE TABLA: " + dbmd.getURL() + "\n"
-                    + "\n    - TIPO: " + dbmd.getUserName()+ "\n");
-            txtArea.setText(texto);
         } catch (SQLException ex) {
             Logger.getLogger(ventanaDescripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -210,18 +208,16 @@ public class ventanaDescripcion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     ////////////////////////////////////////        BOTONES        ////////////////////////////////////////
-    
+
     private void btnBaseDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaseDatosActionPerformed
         informaBD();
     }//GEN-LAST:event_btnBaseDatosActionPerformed
 
     private void btnTablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablasActionPerformed
-        // TODO add your handling code here:
+        informaTabla();
     }//GEN-LAST:event_btnTablasActionPerformed
-   
-    
+
     /**
      * @param args the command line arguments
      */
